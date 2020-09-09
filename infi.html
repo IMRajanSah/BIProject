@@ -4,41 +4,54 @@
 		<style>
 			body{
 				margin: 0px;
+				background-color: ;
 			}
 			h1{
 				display: flex;
-				justify-content: center;	
+				justify-content: center;
+				
+					
 			}
 			
 			.main{
 				border :2px solid red;
 				background-color:#e5c7c7;
 				width: 35%;
-				height: 50%;
+				height: 60%;
 				display: flex;
 				justify-content: center;
 				align-items: center;
 				margin: 0 auto;
+				font-weight: bold;
+				font-size: 18px;
 			}
+			.button{
+				height: 30px;
+    			width: 100px;
+				justify-content: center;
+				font-weight: bold;
+			}
+			
 			
 		</style>
 		
 		
 	</head>
 	<body >
-		<h1>Enter Information for Task</h1>
+		<br><br><h1>Enter Information for Task</h1>
 		<div class="main">
+			
 			<form  method="POST" action="/add">
 				
-				<label for="task_name"><p>Task Name</p> </label>
+				<label for="task_name"><p>Task Name:</p> </label>
 				<input type="text" name="task_name" id="task_name" required/>
-				<label for="task_description"><p>Task Description</p> </label>
+				<label for="task_description"><p>Task Description:</p> </label>
 				<input type="text" name="task_description" id="task_description" required/>
-				<label for="creator"><p>Creator</p> </label>
+				<label for="creator"><p>Creator:</p> </label>
 				<input type="text" name="creator" id="creator" required/>
-				<label for="duration"><p>Duration</p> </label>
-				<input type="number" name="duration" id="duration" min="0"  required/><br><br>
-				<input type="submit" value="Submit"/>
+				<label for="duration"><p>Duration:</p> </label>
+				<input type="number" name="duration" id="duration" min="0"  required/><br><br><br>
+				<input class="button" type="submit" value="Submit"/>
 			</form>
 		</div>
 		
