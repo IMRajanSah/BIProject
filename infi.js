@@ -3,18 +3,20 @@ let mongo = require('mongodb');
 let bodyParser = require('body-parser');
 let path = require('path');
 
+//hereko port or localhost port
 let PORT = process.env.PORT || 3000;
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
-let url="mongodb+srv://rajansah:R7QmqmdmA4jyah9@rajan.q8ma6.mongodb.net/todolist?retryWrites=true&w=majority";
+let url="mongodb+srv://rajansah:R7QmqmdmA4jyah9@rajan.q8ma6.mongodb.net/todolist?retryWrites=true&w=majority";//mongodb cluster's collection url
 let MClient = mongo.MongoClient;
 let app = express();
 
-
+//respond to main page i.e infi.html
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname+'/infi.html'));
 });
 
+//respond to /add url to add task in db
 app.post('/add', urlencodedParser, function (req, res) {
   console.log('added');
   let query = {
@@ -29,6 +31,7 @@ app.post('/add', urlencodedParser, function (req, res) {
     exp: 0
   };
   
+  //After task successfully added
   MClient.connect(url, (err, db) => {
     if(err) throw err;
     db.db('todolist').collection('todo').insertOne(query, (err, resp) => {
@@ -39,6 +42,7 @@ app.post('/add', urlencodedParser, function (req, res) {
   })
 });
 
+//It will fetch the list of task which is not expired
 let fetchNonExpiredList = (response) => {
 	let query = {
     exp: 0
@@ -46,7 +50,7 @@ let fetchNonExpiredList = (response) => {
   
   MClient.connect(url, (err, db) => {
     if(err) throw err;
-    db.db('todolist').collection('todo').find(query).toArray((err, resp) => {
+    db.db('todolist').collection('todo').find(query).toArray((err, resp) => {//todolist fb and todo collection
       if(err) throw err;
       response.send(JSON.stringify(resp));//list data send
       
@@ -81,6 +85,7 @@ let checkForExpired = (response) => {
       let tuple = resp[x];
       let expDate = new Date(tuple['created_at']+tuple.duration*60000);
       let currDate = new Date();
+      //check task is expired or not
       if(currDate.getTime() > expDate.getTime()){
         setExpiredForId(tuple['_id']);
       }  
@@ -92,7 +97,7 @@ let checkForExpired = (response) => {
 };
 
 
-
+//'url/list' function
 app.get('/list', function (req, res) {
   console.log('list');
   
@@ -100,6 +105,7 @@ app.get('/list', function (req, res) {
 	
 });
 
+//server is connected response to console
 let server = app.listen(PORT, () => {
   console.log("Online")
 });
