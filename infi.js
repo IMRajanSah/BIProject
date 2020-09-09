@@ -6,7 +6,7 @@ let path = require('path');
 let PORT = process.env.PORT || 3000;
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
-let dbUrl="mongodb+srv://rajansah:R7QmqmdmA4jyah9@rajan.q8ma6.mongodb.net/todolist?retryWrites=true&w=majority";
+let url="mongodb+srv://rajansah:R7QmqmdmA4jyah9@rajan.q8ma6.mongodb.net/todolist?retryWrites=true&w=majority";
 let MClient = mongo.MongoClient;
 let app = express();
 
@@ -29,7 +29,7 @@ app.post('/add', urlencodedParser, function (req, res) {
     exp: 0
   };
   
-  MClient.connect(dbUrl, (err, db) => {
+  MClient.connect(url, (err, db) => {
     if(err) throw err;
     db.db('todolist').collection('todo').insertOne(query, (err, resp) => {
       if(err) throw err;
@@ -44,7 +44,7 @@ let fetchNonExpiredList = (response) => {
     exp: 0
   };
   
-  MClient.connect(dbUrl, (err, db) => {
+  MClient.connect(url, (err, db) => {
     if(err) throw err;
     db.db('todolist').collection('todo').find(query).toArray((err, resp) => {
       if(err) throw err;
@@ -56,7 +56,7 @@ let fetchNonExpiredList = (response) => {
 };
 
 let setExpiredForId = (doc_id) => {
-	MClient.connect(dbUrl, function(err, db) {
+	MClient.connect(url, function(err, db) {
 	  if (err) throw err;
 	  var myquery = { _id: doc_id };
 	  var newvalues = { $set: {exp: 1} };
@@ -72,7 +72,7 @@ let checkForExpired = (response) => {
     exp: 0
   };
 	
-	MClient.connect(dbUrl, (err, db) => {
+	MClient.connect(url, (err, db) => {
     if(err) throw err;
     db.db('todolist').collection('todo').find(query).toArray((err, resp) => {
       if(err) throw err;
