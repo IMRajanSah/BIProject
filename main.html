@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>BI Project</title>
+		
+		
+	</head>
+	<body >
+    
+		<div >
+			<form  method="POST" action="/add">
+				
+				<label for="task_name">Task Name </label>
+				<input type="text" name="task_name" id="task_name" required/>
+				<label for="task_description">Task Description </label>
+				<input type="text" name="task_description" id="task_description" required/>
+				<label for="creator">Creator </label>
+				<input type="text" name="creator" id="creator" required/>
+				<label for="duration">Duration </label>
+				<input type="number" name="duration" id="duration" min="0"  required/>
+				<input type="submit" value="Submit"/>
+			</form>
+		</div>
+		
+	</body>
+</html>
