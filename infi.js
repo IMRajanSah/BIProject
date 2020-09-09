@@ -3,7 +3,7 @@ let mongo = require('mongodb');
 let bodyParser = require('body-parser');
 let path = require('path');
 
-let PORT = process.env.PORT || 9000;
+let PORT = process.env.PORT || 3000;
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 let dbUrl="mongodb+srv://rajansah:R7QmqmdmA4jyah9@rajan.q8ma6.mongodb.net/todolist?retryWrites=true&w=majority";
@@ -12,7 +12,7 @@ let app = express();
 
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname+'/main.html'));
+  res.sendFile(path.join(__dirname+'/infi.html'));
 });
 
 app.post('/add', urlencodedParser, function (req, res) {
