@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/add', urlencodedParser, function (req, res) {
-  console.log('add');
+  console.log('added');
   let query = {
     task_name: req.body.task_name,
     task_description: req.body.task_description,
@@ -33,7 +33,7 @@ app.post('/add', urlencodedParser, function (req, res) {
     if(err) throw err;
     db.db('todolist').collection('todo').insertOne(query, (err, resp) => {
       if(err) throw err;
-      res.send("code sucess");
+      res.send("<h1>Task Added<h1>");
       db.close();
     })
   })
